@@ -6,7 +6,7 @@
      actualizarse en segundo plano sin quedarse anticuado.
    ========================================================================== */
 const ENGINE_CACHE = 'javalearn-engine-v1';
-const SHELL_CACHE = 'javalearn-shell-v1';
+const SHELL_CACHE = 'javalearn-shell-v2';
 const CDN_CACHE = 'javalearn-cdn-v1';
 const ENGINE_PREFIX = 'https://unpkg.com/@live-codes/java-wasm';
 

@@ -1,6 +1,6 @@
 # AGENTS.md — JavaLearn DAM
 
-Plataforma estática para practicar Java (450 retos). **Sin build, sin npm, sin backend.** Sirve GitHub Pages tal cual.
+Plataforma estática para practicar Java (600 retos). **Sin build, sin npm, sin backend.** Sirve GitHub Pages tal cual.
 
 ## Comandos
 
@@ -24,13 +24,13 @@ data/
   i18n-dict.js        ← diccionario ES/VA (AÑADIR claves SIEMPRE en ambos idiomas)
   topics.js           ← catálogo de algoritmos (150 Parsons)
   editor-methods.js   ← métodos del micro-editor (150 retos)
-  activities.js       ← generadores de las 3×150 actividades
+  activities.js       ← generadores de las 3×200 actividades
   java-support.js     ← preludio Java (clase Alumno)
 js/
   app.js              ← orquestador: switchMode, idioma, tema, intro 1ª vez,
                          instalación PWA (beforeinstallprompt), registro SW
   i18n.js             ← t()/tf()/setLanguage(); actualiza [data-i18n] y despacha 'languagechange'
-  state.js            ← progreso en localStorage ('javalearn_dam_prog') + barra x/450
+  state.js            ← progreso en localStorage ('javalearn_dam_prog') + barra x/600
   blocks.js parsons.js editor.js home.js   ← un módulo por panel
   runner/
     java-engine.js    ← motor wasm: runJava / classifyResult / banner de estado

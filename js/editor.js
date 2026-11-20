@@ -35,14 +35,14 @@ function populateEditorSelect() {
 
 function setEditorFilter(lvl) {
   currentEditorFilter = lvl;
-  ['all', 'easy', 'medium', 'hard'].forEach((l) => {
+  ['all', 'easy', 'medium', 'hard', 'master'].forEach((l) => {
     const b = document.getElementById(`flt-edt-${l}`);
     if (b) {
       if (l === lvl) {
-        b.className = 'px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold';
+        b.className = 'px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold' + (l === 'master' ? ' text-amber-300 ring-1 ring-amber-400/40' : '');
       } else {
         const col =
-          l === 'easy' ? 'text-ide-success' : l === 'medium' ? 'text-ide-warning' : l === 'hard' ? 'text-ide-danger' : 'text-ide-muted';
+          l === 'easy' ? 'text-ide-success' : l === 'medium' ? 'text-ide-warning' : l === 'hard' ? 'text-ide-danger' : l === 'master' ? 'text-amber-400 font-semibold' : 'text-ide-muted';
         b.className = `px-2.5 py-1 rounded ${col} hover:bg-ide-surface`;
       }
     }
@@ -209,7 +209,7 @@ export function initEditor() {
   const sel = document.getElementById('select-editor-act');
   if (sel) sel.addEventListener('change', (e) => onEditorActChange(e.target.value));
 
-  ['all', 'easy', 'medium', 'hard'].forEach((l) => {
+  ['all', 'easy', 'medium', 'hard', 'master'].forEach((l) => {
     const b = document.getElementById(`flt-edt-${l}`);
     if (b) b.addEventListener('click', () => setEditorFilter(l));
   });

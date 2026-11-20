@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="JavaLearn DAM: practica Java con 450 retos de Bloques, Parsons y Micro-Editor, con compilación y ejecución reales en el navegador.">
+  <meta name="description" content="JavaLearn DAM: practica Java con 600 retos de Bloques, Parsons y Micro-Editor, incluyendo nivel extra ⭐ Retos para el 10, con compilación y ejecución reales en el navegador.">
   <title>JavaLearn DAM - Simulador de Programación Java</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23181825'/%3E%3Ctext x='16' y='23' font-family='Fira Code,monospace' font-size='19' font-weight='700' fill='%23f9e2af' text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E">
   <!-- PWA -->
@@ -74,7 +74,7 @@
             <h1 class="font-bold text-lg text-ide-heading tracking-tight">JavaLearn <span class="text-ide-warning text-xs px-2 py-0.5 rounded bg-ide-warning/10 border border-ide-warning/30">DAM 1º</span></h1>
             <span class="text-[11px] font-medium text-ide-warning bg-ide-warning/10 border border-ide-warning/20 px-2 py-0.5 rounded-full" id="lbl-author-badge" data-i18n="author_badge">Autora: Mara Vañó</span>
           </div>
-          <p id="lbl-subtitle" class="text-xs text-ide-muted" data-i18n="subtitle">Plataforma interactiva de aprendizaje de Java (450 Retos)</p>
+          <p id="lbl-subtitle" class="text-xs text-ide-muted" data-i18n="subtitle">Plataforma interactiva de aprendizaje de Java (600 Retos)</p>
         </div>
       </div>
 
@@ -114,7 +114,7 @@
         <div class="hidden sm:flex flex-col items-end">
           <span class="text-xs text-ide-muted flex items-center gap-1">
             <span id="lbl-progress-title" data-i18n="progress_title">Progreso DAM:</span> 
-            <strong id="stat-total" class="text-ide-warning">0/450</strong>
+            <strong id="stat-total" class="text-ide-warning">0/600</strong>
           </span>
           <div class="w-28 h-2 bg-ide-card rounded-full overflow-hidden border border-ide-border mt-1">
             <div id="stat-bar" class="h-full bg-gradient-to-r from-amber-400 to-ide-success transition-all duration-300" style="width: 0%"></div>
@@ -138,7 +138,7 @@
     <section id="panel-home" class="space-y-6 hidden">
       <!-- Hero -->
       <div class="relative overflow-hidden rounded-2xl border border-ide-border bg-gradient-to-br from-ide-surface via-ide-card to-ide-surface p-6 sm:p-10 text-center">
-        <span class="inline-block text-[11px] font-bold uppercase tracking-widest text-ide-link bg-ide-link/10 border border-ide-link/30 px-3 py-1 rounded-full mb-4" data-i18n="home_kicker">Plataforma interactiva · 450 retos · sin backend</span>
+        <span class="inline-block text-[11px] font-bold uppercase tracking-widest text-ide-link bg-ide-link/10 border border-ide-link/30 px-3 py-1 rounded-full mb-4" data-i18n="home_kicker">Plataforma interactiva · 600 retos · sin backend · Nivel 10</span>
         <h2 class="text-2xl sm:text-4xl font-extrabold text-ide-heading tracking-tight mb-3" data-i18n="home_title">Aprende Java practicando, de verdad</h2>
         <p class="text-sm sm:text-base text-ide-muted max-w-2xl mx-auto mb-6" data-i18n="home_sub">Tres modos de práctica, compilación real en tu navegador y progreso guardado. Elige por dónde empezar.</p>
         <div class="flex flex-wrap items-center justify-center gap-3">
@@ -153,8 +153,8 @@
           </button>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-6 mt-8 pt-6 border-t border-ide-border text-xs text-ide-muted">
-          <span><strong class="text-ide-heading text-base">450</strong> <span data-i18n="home_stat_retos">retos</span></span>
-          <span><strong class="text-ide-heading text-base">3</strong> <span data-i18n="home_stat_levels">niveles</span></span>
+          <span><strong class="text-ide-heading text-base">600</strong> <span data-i18n="home_stat_retos">retos</span></span>
+          <span><strong class="text-ide-heading text-base">4</strong> <span data-i18n="home_stat_levels">niveles</span></span>
           <span><strong class="text-ide-heading text-base">ES / VA</strong> <span data-i18n="home_stat_lang">idiomas</span></span>
         </div>
       </div>
@@ -168,7 +168,7 @@
             <span class="text-3xl mb-2">🧩</span>
             <h4 class="font-bold text-ide-heading mb-1" data-i18n="home_blocks_title">Bloques</h4>
             <p class="text-sm text-ide-muted flex-1" data-i18n="home_blocks_desc">Haz clic en bloques de código para ensamblar un programa Java completo y ejecutarlo. Ideal para empezar.</p>
-            <span class="text-[11px] font-mono text-ide-link mt-2" data-i18n="home_blocks_meta">150 retos · clic · salida esperada visible</span>
+            <span class="text-[11px] font-mono text-ide-link mt-2" data-i18n="home_blocks_meta">200 retos · clic · salida esperada visible</span>
             <button data-goto-mode="blocks" class="mt-4 text-xs font-bold px-4 py-2 rounded-lg bg-ide-accent text-slate-900 hover:brightness-110 transition-all active:scale-95 self-start">
               <span data-i18n="home_practice_btn">Practicar →</span>
             </button>
@@ -178,7 +178,7 @@
             <span class="text-3xl mb-2">📐</span>
             <h4 class="font-bold text-ide-heading mb-1" data-i18n="home_parsons_title">Parsons</h4>
             <p class="text-sm text-ide-muted flex-1" data-i18n="home_parsons_desc">Reordena y sangra líneas de código —incluidas trampas— hasta reconstruir el algoritmo. Compílalo para verificar.</p>
-            <span class="text-[11px] font-mono text-ide-link mt-2" data-i18n="home_parsons_meta">150 retos · orden + indentación · compilador real</span>
+            <span class="text-[11px] font-mono text-ide-link mt-2" data-i18n="home_parsons_meta">200 retos · orden + indentación · compilador real</span>
             <button data-goto-mode="parsons" class="mt-4 text-xs font-bold px-4 py-2 rounded-lg bg-ide-accent text-slate-900 hover:brightness-110 transition-all active:scale-95 self-start">
               <span data-i18n="home_practice_btn">Practicar →</span>
             </button>
@@ -188,7 +188,7 @@
             <span class="text-3xl mb-2">💻</span>
             <h4 class="font-bold text-ide-heading mb-1" data-i18n="home_editor_title">Micro-Editor</h4>
             <p class="text-sm text-ide-muted flex-1" data-i18n="home_editor_desc">Escribe Java a mano desde una plantilla y supera la batería de tests JUnit reales.</p>
-            <span class="text-[11px] font-mono text-ide-link mt-2" data-i18n="home_editor_meta">150 retos · tests JUnit · solución oficial</span>
+            <span class="text-[11px] font-mono text-ide-link mt-2" data-i18n="home_editor_meta">200 retos · tests JUnit · solución oficial</span>
             <button data-goto-mode="editor" class="mt-4 text-xs font-bold px-4 py-2 rounded-lg bg-ide-accent text-slate-900 hover:brightness-110 transition-all active:scale-95 self-start">
               <span data-i18n="home_practice_btn">Practicar →</span>
             </button>
@@ -213,10 +213,10 @@
       <div id="home-howto" class="bg-ide-surface border border-ide-border rounded-2xl p-5 sm:p-6">
         <h3 class="font-bold text-ide-heading mb-2" data-i18n="home_howto_title">🎯 Cómo practicar</h3>
         <ol class="text-sm text-ide-text space-y-1.5 list-decimal list-inside">
-          <li data-i18n="home_howto_li1">Elige un nivel con los filtros: Fácil, Medio o Avanzado (50 de cada uno).</li>
+          <li data-i18n="home_howto_li1">Elige un nivel con los filtros: Fácil, Medio, Avanzado o ⭐ Reto 10 (50 de cada uno).</li>
           <li data-i18n="home_howto_li2">Lee el enunciado y la salida esperada; ejecuta o valida cuando estés listo.</li>
           <li data-i18n="home_howto_li3">¿Atascado? Usa «Ver Solución / Comparar» o la solución oficial de Parsons.</li>
-          <li data-i18n="home_howto_li4">Tu progreso se guarda solo (hasta 450) y lo ves en la barra superior.</li>
+          <li data-i18n="home_howto_li4">Tu progreso se guarda solo (hasta 600) y lo ves en la barra superior.</li>
         </ol>
         <p class="text-xs text-ide-muted mt-3 pt-3 border-t border-ide-border" data-i18n="home_howto_note">La plataforma está en valenciano y castellano: cámbialo con ES / VA.</p>
       </div>
@@ -239,10 +239,11 @@
         <!-- Filtros por nivel -->
         <div class="flex items-center gap-1.5 bg-ide-card p-1 rounded-lg border border-ide-border text-xs font-medium">
           <span class="px-2 text-ide-muted text-[11px]" id="lbl-flt-blk" data-i18n="flt_level">Nivel:</span>
-          <button id="flt-blk-all" data-i18n="btn_all" class="px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold">Todas (150)</button>
+          <button id="flt-blk-all" data-i18n="btn_all" class="px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold">Todas (200)</button>
           <button id="flt-blk-easy" data-i18n="btn_easy" class="px-2.5 py-1 rounded text-ide-success hover:bg-ide-surface">Fácil (50)</button>
           <button id="flt-blk-medium" data-i18n="btn_medium" class="px-2.5 py-1 rounded text-ide-warning hover:bg-ide-surface">Medio (50)</button>
           <button id="flt-blk-hard" data-i18n="btn_hard" class="px-2.5 py-1 rounded text-ide-danger hover:bg-ide-surface">Avanzado (50)</button>
+          <button id="flt-blk-master" data-i18n="btn_reto10" class="px-2.5 py-1 rounded text-amber-400 font-semibold hover:bg-ide-surface">⭐ Reto 10 (50)</button>
         </div>
       </div>
 
@@ -353,10 +354,11 @@
 
         <div class="flex items-center gap-1.5 bg-ide-card p-1 rounded-lg border border-ide-border text-xs font-medium">
           <span class="px-2 text-ide-muted text-[11px]" id="lbl-flt-par" data-i18n="flt_level">Nivel:</span>
-          <button id="flt-par-all" data-i18n="btn_all" class="px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold">Todas (150)</button>
+          <button id="flt-par-all" data-i18n="btn_all" class="px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold">Todas (200)</button>
           <button id="flt-par-easy" data-i18n="btn_easy" class="px-2.5 py-1 rounded text-ide-success hover:bg-ide-surface">Fácil (50)</button>
           <button id="flt-par-medium" data-i18n="btn_medium" class="px-2.5 py-1 rounded text-ide-warning hover:bg-ide-surface">Medio (50)</button>
           <button id="flt-par-hard" data-i18n="btn_hard" class="px-2.5 py-1 rounded text-ide-danger hover:bg-ide-surface">Avanzado (50)</button>
+          <button id="flt-par-master" data-i18n="btn_reto10" class="px-2.5 py-1 rounded text-amber-400 font-semibold hover:bg-ide-surface">⭐ Reto 10 (50)</button>
         </div>
       </div>
 
@@ -433,10 +435,11 @@
 
         <div class="flex items-center gap-1.5 bg-ide-card p-1 rounded-lg border border-ide-border text-xs font-medium">
           <span class="px-2 text-ide-muted text-[11px]" id="lbl-flt-edt" data-i18n="flt_level">Nivel:</span>
-          <button id="flt-edt-all" data-i18n="btn_all" class="px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold">Todas (150)</button>
+          <button id="flt-edt-all" data-i18n="btn_all" class="px-2.5 py-1 rounded bg-ide-surface text-ide-heading font-bold">Todas (200)</button>
           <button id="flt-edt-easy" data-i18n="btn_easy" class="px-2.5 py-1 rounded text-ide-success hover:bg-ide-surface">Fácil (50)</button>
           <button id="flt-edt-medium" data-i18n="btn_medium" class="px-2.5 py-1 rounded text-ide-warning hover:bg-ide-surface">Medio (50)</button>
           <button id="flt-edt-hard" data-i18n="btn_hard" class="px-2.5 py-1 rounded text-ide-danger hover:bg-ide-surface">Avanzado (50)</button>
+          <button id="flt-edt-master" data-i18n="btn_reto10" class="px-2.5 py-1 rounded text-amber-400 font-semibold hover:bg-ide-surface">⭐ Reto 10 (50)</button>
         </div>
       </div>
 
@@ -507,7 +510,7 @@
   <footer class="border-t border-ide-border bg-ide-surface mt-auto py-3 text-center text-xs text-ide-muted">
     <div class="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-2">
       <span>JavaLearn DAM · Ciclo Formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma · <strong class="text-ide-text" id="lbl-footer-author" data-i18n="footer_author">Autora: Mara Vañó</strong></span>
-      <span class="text-ide-warning font-mono">450 Actividades (150 Fácil, 150 Medio, 150 Avanzado)</span>
+      <span class="text-ide-warning font-mono">600 Actividades (3 modos × 200: Fácil, Medio, Avanzado y ⭐ Reto 10)</span>
     </div>
   </footer>
 

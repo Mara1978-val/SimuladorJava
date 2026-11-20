@@ -1,6 +1,6 @@
 # SimuladorJava — JavaLearn DAM
 
-Plataforma **estática** para practicar Java con **450 retos** (150 Bloques · 150 Parsons · 150 Micro-Editor) y **compilación y ejecución reales de Java en el navegador** — sin backend, sin build y sin dependencias de servidor. Pensada para el ciclo **DAM** (Desarrollo de Aplicaciones Multiplataforma).
+Plataforma **estática** para practicar Java con **600 retos** (200 Bloques · 200 Parsons · 200 Micro-Editor, incluyendo nivel extra **⭐ Retos para el 10**) y **compilación y ejecución reales de Java en el navegador** — sin backend, sin build y sin dependencias de servidor. Pensada para el ciclo **DAM** (Desarrollo de Aplicaciones Multiplataforma).
 
 > 🚀 **En vivo:** [https://mara1978-val.github.io/SimuladorJava/](https://mara1978-val.github.io/SimuladorJava/)
 >
@@ -10,7 +10,7 @@ Plataforma **estática** para practicar Java con **450 retos** (150 Bloques · 1
 
 ## ✨ Qué ofrece
 
-### 3 modos de práctica (450 retos en total)
+### 3 modos de práctica (600 retos en total)
 
 | Modo | Qué haces | Cómo se verifica |
 |---|---|---|
@@ -18,9 +18,9 @@ Plataforma **estática** para practicar Java con **450 retos** (150 Bloques · 1
 | 🧩 **Parsons** | Reordenas y sangras líneas de código hasta reconstruir el algoritmo (con distractores). | Botón **«Compilar código»**: comprueba que tu orden **compila de verdad**. |
 | ✍️ **Micro-Editor** | Escribes Java a mano sobre una plantilla con firma obligatoria. | **Tests JUnit reales**: un driver genera `Main.java`, compila tu solución y ejecuta los casos. |
 
-- **Filtros por dificultad** (Fácil / Medio / Avanzado) y selector de actividad en cada modo.
+- **Filtros por dificultad**: Fácil, Medio, Avanzado y **⭐ Reto 10 (extra para buscar la matrícula de honor)** en cada modo (50 retos por nivel).
 - **Solución oficial** en modal de comparación (también en la landing, «Cómo practicar»).
-- **Progreso guardado** en `localStorage` (`javalearn_dam_prog`) con barra global **x/450**.
+- **Progreso guardado** en `localStorage` (`javalearn_dam_prog`) con barra global **x/600**.
 
 ### Motor Java real (no es un simulador)
 

@@ -36,6 +36,8 @@ export function saveProgress() {
   updateGlobalProgress();
 }
 
+export const TOTAL_ACTIVITIES = 600;
+
 export function updateGlobalProgress() {
   const bCount = Object.keys(progress.blocks || {}).length;
   const pCount = Object.keys(progress.parsons || {}).length;
@@ -43,8 +45,8 @@ export function updateGlobalProgress() {
   const total = bCount + pCount + eCount;
   const statTotal = document.getElementById('stat-total');
   const statBar = document.getElementById('stat-bar');
-  if (statTotal) statTotal.textContent = `${total}/450`;
-  if (statBar) statBar.style.width = `${Math.min(100, Math.round((total / 450) * 100))}%`;
+  if (statTotal) statTotal.textContent = `${total}/${TOTAL_ACTIVITIES}`;
+  if (statBar) statBar.style.width = `${Math.min(100, Math.round((total / TOTAL_ACTIVITIES) * 100))}%`;
 }
 
 /** Marca una actividad como superada, persiste y notifica a los módulos. */

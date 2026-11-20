@@ -104,7 +104,7 @@
 
 <header>
   <h1>JavaLearn DAM <span>— Auditoría de compatibilidad</span></h1>
-  <p>Verificación de los 150 retos de Bloques y los 150 del Micro-Editor con el motor
+  <p>Verificación de los 200 retos de Bloques y los 200 del Micro-Editor con el motor
      Java real (javac + TeaVM → WebAssembly, <code>@live-codes/java-wasm</code>).</p>
 </header>
 
@@ -250,14 +250,14 @@ function updateProgress() {
 
   const bOk = audit.blocks.filter(b => b.status === 'PASS').length;
   const eOk = audit.editor.filter(e => e.status === 'PASS').length;
-  elCardBlocks.textContent = bOk + '/150';
+  elCardBlocks.textContent = bOk + '/' + BLOCK_ACTIVITIES.length;
   elCardBlocks.className = 'stat-value ' +
-    (audit.blocks.length === 0 ? '' : (bOk === 150 ? 'ok' : 'bad'));
+    (audit.blocks.length === 0 ? '' : (bOk === BLOCK_ACTIVITIES.length ? 'ok' : 'bad'));
   elCardBlocksSub.textContent = audit.blocks.length + ' auditados · ' +
     (audit.blocks.length - bOk) + ' con problema';
-  elCardEditor.textContent = eOk + '/150';
+  elCardEditor.textContent = eOk + '/' + EDITOR_ACTIVITIES.length;
   elCardEditor.className = 'stat-value ' +
-    (audit.editor.length === 0 ? '' : (eOk === 150 ? 'ok' : 'bad'));
+    (audit.editor.length === 0 ? '' : (eOk === EDITOR_ACTIVITIES.length ? 'ok' : 'bad'));
   elCardEditorSub.textContent = audit.editor.length + ' auditados · ' +
     (audit.editor.length - eOk) + ' con problema';
   elCardErrors.textContent = String(audit.failures.length);
@@ -533,9 +533,9 @@ function finish() {
   const eOk = audit.editor.filter(e => e.status === 'PASS').length;
   const resumen = {
     blocksOk: bOk,
-    blocksTotal: 150,
+    blocksTotal: BLOCK_ACTIVITIES.length,
     editorOk: eOk,
-    editorTotal: 150,
+    editorTotal: EDITOR_ACTIVITIES.length,
     errores: audit.failures.length,
     completados: audit.completed,
     total: audit.total,

@@ -1,12 +1,12 @@
 import { getAlgorithmTopic } from "./topics.js";
 import { getEditorMethodConfig } from "./editor-methods.js";
 
-/* Generadores de las 3x150 actividades - extraidos literalmente del original */
+/* Generadores de las 3x200 actividades (Fácil, Medio, Avanzado y ⭐ Reto 10) */
     export const BLOCK_ACTIVITIES = [];
-    (function generate150Blocks() {
-      for (let i = 1; i <= 150; i++) {
-        const lvl = i <= 50 ? 'easy' : i <= 100 ? 'medium' : 'hard';
-        const offset = i <= 50 ? i - 1 : i <= 100 ? i - 51 : i - 101;
+    (function generate200Blocks() {
+      for (let i = 1; i <= 200; i++) {
+        const lvl = i <= 50 ? 'easy' : i <= 100 ? 'medium' : i <= 150 ? 'hard' : 'master';
+        const offset = i <= 50 ? i - 1 : i <= 100 ? i - 51 : i <= 150 ? i - 101 : i - 151;
         const meta = getAlgorithmTopic(lvl, offset);
 
         const lines = meta.code.split('\n');
@@ -28,10 +28,10 @@ import { getEditorMethodConfig } from "./editor-methods.js";
     })();
 
     export const PARSONS_ACTIVITIES = [];
-    (function generate150Parsons() {
-      for (let i = 1; i <= 150; i++) {
-        const lvl = i <= 50 ? 'easy' : i <= 100 ? 'medium' : 'hard';
-        const offset = i <= 50 ? i - 1 : i <= 100 ? i - 51 : i - 101;
+    (function generate200Parsons() {
+      for (let i = 1; i <= 200; i++) {
+        const lvl = i <= 50 ? 'easy' : i <= 100 ? 'medium' : i <= 150 ? 'hard' : 'master';
+        const offset = i <= 50 ? i - 1 : i <= 100 ? i - 51 : i <= 150 ? i - 101 : i - 151;
         const meta = getAlgorithmTopic(lvl, offset);
 
         const lines = meta.code.split('\n').map(l => {
@@ -61,10 +61,10 @@ import { getEditorMethodConfig } from "./editor-methods.js";
     })();
 
     export const EDITOR_ACTIVITIES = [];
-    (function generate150Editor() {
-      for (let i = 1; i <= 150; i++) {
-        const lvl = i <= 50 ? 'easy' : i <= 100 ? 'medium' : 'hard';
-        const offset = i <= 50 ? i - 1 : i <= 100 ? i - 51 : i - 101;
+    (function generate200Editor() {
+      for (let i = 1; i <= 200; i++) {
+        const lvl = i <= 50 ? 'easy' : i <= 100 ? 'medium' : i <= 150 ? 'hard' : 'master';
+        const offset = i <= 50 ? i - 1 : i <= 100 ? i - 51 : i <= 150 ? i - 101 : i - 151;
         const meta = getEditorMethodConfig(lvl, offset);
 
         const sig = `public static ${meta.sig}`;
