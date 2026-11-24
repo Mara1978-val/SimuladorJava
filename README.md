@@ -83,7 +83,7 @@ sw.js                   ← Service Worker: shell + CDN + motor (ver tabla de ar
 manifest.webmanifest    ← PWA: nombre, start_url, iconos, standalone
 icons/                  ← icon.svg / icon-maskable.svg + PNG (192/512/maskable/apple)
 data/
-  i18n-dict.js          ← diccionario ES/VA (102 claves; AÑADIR SIEMPRE en ambos)
+  i18n-dict.js          ← diccionario ES/VA (104 claves; AÑADIR SIEMPRE en ambos)
   topics.js             ← catálogo de algoritmos (código + salida esperada)
   editor-methods.js     ← métodos del Micro-Editor (firma, tests, solución oficial)
   activities.js         ← generadores de las 3×200 actividades

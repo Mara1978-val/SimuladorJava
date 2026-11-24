@@ -8,7 +8,7 @@
 import { BLOCK_ACTIVITIES } from '../data/activities.js';
 import { t, isEs } from './i18n.js';
 import { progress } from './state.js';
-import { escapeHtml, getLevelLabel, getBadgeClass } from './utils.js';
+import { escapeHtml, getLevelLabel, getBadgeClass, nextActivityId } from './utils.js';
 import { buildMainSource, runBlockProgram } from './runner/blocks-runner.js';
 
 let currentBlockFilter = 'all';
@@ -63,9 +63,15 @@ function onBlockActChange(val) {
   selectBlockActivity(parseInt(val, 10));
 }
 
+function goToNextBlock() {
+  const id = nextActivityId(BLOCK_ACTIVITIES, currentBlockFilter, currentBlockActId);
+  if (id !== null) selectBlockActivity(id);
+}
+
 function selectBlockActivity(id) {
   currentBlockActId = id;
   blockWorkspace = [];
+  populateBlockSelect();
   renderBlockActivity(id);
 }
 
@@ -182,6 +188,9 @@ async function runBlocks() {
 export function initBlocks() {
   const sel = document.getElementById('select-block-act');
   if (sel) sel.addEventListener('change', (e) => onBlockActChange(e.target.value));
+
+  const btnNext = document.getElementById('btn-next-block');
+  if (btnNext) btnNext.addEventListener('click', goToNextBlock);
 
   ['all', 'easy', 'medium', 'hard', 'master'].forEach((l) => {
     const b = document.getElementById(`flt-blk-${l}`);

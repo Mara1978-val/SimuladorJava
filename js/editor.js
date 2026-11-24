@@ -6,7 +6,7 @@
 import { EDITOR_ACTIVITIES } from '../data/activities.js';
 import { t, isEs } from './i18n.js';
 import { progress } from './state.js';
-import { getLevelLabel, getBadgeClass } from './utils.js';
+import { getLevelLabel, getBadgeClass, nextActivityId } from './utils.js';
 import { runEditorJUnit } from './runner/junit-runner.js';
 
 let currentEditorFilter = 'all';
@@ -60,8 +60,14 @@ function onEditorActChange(val) {
   selectEditorActivity(parseInt(val, 10), false);
 }
 
+function goToNextEditor() {
+  const id = nextActivityId(EDITOR_ACTIVITIES, currentEditorFilter, currentEditorActId);
+  if (id !== null) selectEditorActivity(id, false);
+}
+
 function selectEditorActivity(id, keepUserCode = false) {
   currentEditorActId = id;
+  populateEditorSelect();
   renderEditorActivity(id, keepUserCode);
 }
 
@@ -208,6 +214,9 @@ async function runEditorTests() {
 export function initEditor() {
   const sel = document.getElementById('select-editor-act');
   if (sel) sel.addEventListener('change', (e) => onEditorActChange(e.target.value));
+
+  const btnNext = document.getElementById('btn-next-editor');
+  if (btnNext) btnNext.addEventListener('click', goToNextEditor);
 
   ['all', 'easy', 'medium', 'hard', 'master'].forEach((l) => {
     const b = document.getElementById(`flt-edt-${l}`);

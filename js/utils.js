@@ -27,3 +27,11 @@ export function getBadgeClass(level) {
   if (level === 'master') return 'bg-amber-400/15 text-amber-300 border border-amber-400/30 font-semibold';
   return 'bg-ide-danger/10 text-ide-danger border border-ide-danger/20';
 }
+
+/** Id de la siguiente actividad dentro del filtro actual (cicla al primero). */
+export function nextActivityId(activities, filter, currentId) {
+  const filtered = activities.filter((a) => filter === 'all' || a.level === filter);
+  if (filtered.length === 0) return null;
+  const idx = filtered.findIndex((a) => a.id === currentId);
+  return filtered[(idx + 1) % filtered.length].id;
+}

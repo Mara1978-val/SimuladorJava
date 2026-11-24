@@ -7,7 +7,7 @@
 import { PARSONS_ACTIVITIES } from '../data/activities.js';
 import { isEs } from './i18n.js';
 import { progress, markCompleted } from './state.js';
-import { escapeHtml, getLevelLabel, getBadgeClass } from './utils.js';
+import { escapeHtml, getLevelLabel, getBadgeClass, nextActivityId } from './utils.js';
 import { compileParsonsSolution } from './runner/parsons-compile.js';
 
 let currentParsonsFilter = 'all';
@@ -63,8 +63,14 @@ function onParsonsActChange(val) {
   selectParsonsActivity(parseInt(val, 10));
 }
 
+function goToNextParsons() {
+  const id = nextActivityId(PARSONS_ACTIVITIES, currentParsonsFilter, currentParsonsActId);
+  if (id !== null) selectParsonsActivity(id);
+}
+
 function selectParsonsActivity(id) {
   currentParsonsActId = id;
+  populateParsonsSelect();
   renderParsonsActivity(id);
 }
 
@@ -260,6 +266,9 @@ async function compileParsons() {
 export function initParsons() {
   const sel = document.getElementById('select-parsons-act');
   if (sel) sel.addEventListener('change', (e) => onParsonsActChange(e.target.value));
+
+  const btnNext = document.getElementById('btn-next-parsons');
+  if (btnNext) btnNext.addEventListener('click', goToNextParsons);
 
   ['all', 'easy', 'medium', 'hard', 'master'].forEach((l) => {
     const b = document.getElementById(`flt-par-${l}`);
