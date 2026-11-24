@@ -83,17 +83,17 @@ sw.js                   ← Service Worker: shell + CDN + motor (ver tabla de ar
 manifest.webmanifest    ← PWA: nombre, start_url, iconos, standalone
 icons/                  ← icon.svg / icon-maskable.svg + PNG (192/512/maskable/apple)
 data/
-  i18n-dict.js          ← diccionario ES/VA (101 claves; AÑADIR SIEMPRE en ambos)
+  i18n-dict.js          ← diccionario ES/VA (102 claves; AÑADIR SIEMPRE en ambos)
   topics.js             ← catálogo de algoritmos (código + salida esperada)
   editor-methods.js     ← métodos del Micro-Editor (firma, tests, solución oficial)
-  activities.js         ← generadores de las 3×150 actividades
+  activities.js         ← generadores de las 3×200 actividades
   java-support.js       ← preludio Java (clase de apoyo Alumno)
 js/
   app.js                ← orquestador: modos, idioma, tema, intro 1ª vez,
                           instalación PWA, registro del SW
   i18n.js               ← t()/tf()/setLanguage(); actualiza [data-i18n] y
                           [data-i18n-aria] y despacha 'languagechange'
-  state.js              ← progreso en localStorage + barra x/450
+  state.js              ← progreso en localStorage + barra x/600
   home.js               ← landing: CTAs y «Cómo practicar»
   blocks.js parsons.js editor.js   ← un módulo por panel
   utils.js              ← helpers compartidos (escapeHtml, badges…)
@@ -106,7 +106,7 @@ js/
 legacy/
   AplicacionJAVA-original.html  ← monolito original (referencia, no tocar)
 tools/
-  audit.html            ← auditoría de 300 compilaciones con el motor real
+  audit.html            ← auditoría de 500 compilaciones únicas (600 retos) con el motor real
   INTERFACES.md         ← contrato de módulos
 AGENTS.md / HANDSOFF.md ← convenciones del repo / handoff de sesión
 ```
@@ -141,11 +141,11 @@ El Micro-Editor sigue el mismo camino pero con `junit-runner.buildTestDriver()`,
 
 ### Auditoría (la más fuerte)
 
-Abre **`tools/audit.html`** con el servidor local en marcha. Compila con el motor real **los 150 programas de Bloques + las 150 soluciones oficiales del Micro-Editor (300 casos)** y comprueba salidas y tests.
+Abre **`tools/audit.html`** con el servidor local en marcha. Compila con el motor real **los 200 programas de Bloques, las 150 soluciones de Parsons y las 200 soluciones oficiales del Micro-Editor (500 compilaciones únicas, deduplicadas; 600 retos)** y comprueba salidas y tests.
 
-- Estado actual: **300/300 PASS, 0 fallos** (verificado también contra un worktree limpio de `HEAD`).
-- Expone `window.__audit` (`{ done, blocks, editor, failures }`) para automatización con Puppeteer/CDN.
-- tarda ~4–5 minutos (descarga y usa el wasm real).
+- Estado actual: **500/500 PASS, 0 fallos** (600 retos; verificado con Chrome headless sobre el servidor local).
+- Expone `window.__audit` (`{ done, blocks, parsons, editor, failures }`) para automatización con Puppeteer/CDN.
+- tarda ~15–20 minutos (descarga y usa el wasm real, 500 compilaciones).
 
 ### Lighthouse
 

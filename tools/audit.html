@@ -104,7 +104,7 @@
 
 <header>
   <h1>JavaLearn DAM <span>— Auditoría de compatibilidad</span></h1>
-  <p>Verificación de los 200 retos de Bloques y los 200 del Micro-Editor con el motor
+  <p>Verificación de los 600 retos (Bloques, Parsons y Micro-Editor, incluyendo nivel ⭐ Reto 10) con el motor
      Java real (javac + TeaVM → WebAssembly, <code>@live-codes/java-wasm</code>).</p>
 </header>
 
@@ -129,6 +129,11 @@
       <div class="stat-label">Bloques</div>
       <div id="card-blocks" class="stat-value">—</div>
       <div id="card-blocks-sub" class="stat-sub">esperando</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Parsons</div>
+      <div id="card-parsons" class="stat-value">—</div>
+      <div id="card-parsons-sub" class="stat-sub">esperando</div>
     </div>
     <div class="stat">
       <div class="stat-label">Micro-Editor</div>
@@ -179,7 +184,7 @@
    El CSS es propio (sin CDN) para no depender de index.html.
    ========================================================================== */
 
-import { BLOCK_ACTIVITIES, EDITOR_ACTIVITIES } from '../data/activities.js';
+import { BLOCK_ACTIVITIES, PARSONS_ACTIVITIES, EDITOR_ACTIVITIES } from '../data/activities.js';
 import { JAVA_PRELUDE } from '../data/java-support.js';
 import { escapeHtml } from '../js/utils.js';
 
@@ -199,6 +204,7 @@ const audit = {
   total: 0,
   completed: 0,
   blocks: [],
+  parsons: [],
   editor: [],
   failures: []
 };
@@ -209,6 +215,7 @@ const $ = (id) => document.getElementById(id);
 const elStage = $('stage'), elCounter = $('counter'), elBar = $('bar');
 const elEngine = $('engine-msg'), elAlert = $('alert'), elLog = $('log');
 const elCardBlocks = $('card-blocks'), elCardBlocksSub = $('card-blocks-sub');
+const elCardParsons = $('card-parsons'), elCardParsonsSub = $('card-parsons-sub');
 const elCardEditor = $('card-editor'), elCardEditorSub = $('card-editor-sub');
 const elCardErrors = $('card-errors'), elCardErrorsSub = $('card-errors-sub');
 const elFailBody = $('failures-body'), elRetry = $('btn-retry');
@@ -249,17 +256,27 @@ function updateProgress() {
   elCounter.textContent = audit.completed + ' / ' + audit.total + '  (' + pct + '%)';
 
   const bOk = audit.blocks.filter(b => b.status === 'PASS').length;
+  const pOk = audit.parsons.filter(p => p.status === 'PASS').length;
   const eOk = audit.editor.filter(e => e.status === 'PASS').length;
+
   elCardBlocks.textContent = bOk + '/' + BLOCK_ACTIVITIES.length;
   elCardBlocks.className = 'stat-value ' +
     (audit.blocks.length === 0 ? '' : (bOk === BLOCK_ACTIVITIES.length ? 'ok' : 'bad'));
   elCardBlocksSub.textContent = audit.blocks.length + ' auditados · ' +
     (audit.blocks.length - bOk) + ' con problema';
+
+  elCardParsons.textContent = pOk + '/' + PARSONS_ACTIVITIES.length;
+  elCardParsons.className = 'stat-value ' +
+    (audit.parsons.length === 0 ? '' : (pOk === PARSONS_ACTIVITIES.length ? 'ok' : 'bad'));
+  elCardParsonsSub.textContent = audit.parsons.length + ' auditados · ' +
+    (audit.parsons.length - pOk) + ' con problema';
+
   elCardEditor.textContent = eOk + '/' + EDITOR_ACTIVITIES.length;
   elCardEditor.className = 'stat-value ' +
     (audit.editor.length === 0 ? '' : (eOk === EDITOR_ACTIVITIES.length ? 'ok' : 'bad'));
   elCardEditorSub.textContent = audit.editor.length + ' auditados · ' +
     (audit.editor.length - eOk) + ' con problema';
+
   elCardErrors.textContent = String(audit.failures.length);
   elCardErrors.className = 'stat-value ' + (audit.failures.length ? 'bad' : 'ok');
 }
@@ -287,9 +304,11 @@ function resetUI() {
   elBar.style.width = '0%';
   elCounter.textContent = '0 / 0';
   elCardBlocks.textContent = '—';
+  elCardParsons.textContent = '—';
   elCardEditor.textContent = '—';
   elCardErrors.textContent = '0';
   elCardBlocksSub.textContent = 'esperando';
+  elCardParsonsSub.textContent = 'esperando';
   elCardEditorSub.textContent = 'esperando';
   elCardErrorsSub.textContent = 'fallos detectados';
 }
@@ -300,6 +319,7 @@ function resetAudit() {
   audit.total = 0;
   audit.completed = 0;
   audit.blocks.length = 0;
+  audit.parsons.length = 0;
   audit.editor.length = 0;
   audit.failures.length = 0;
 }
@@ -431,7 +451,112 @@ function auditBlocks() {
 }
 
 /* ==========================================================================
-   B) Auditoría del MICRO-EDITOR — sin dedup (150 métodos distintos)
+   B) Auditoría de PARSONS — compilación de algoritmos correctos
+   ========================================================================== */
+function buildParsonsSource(act) {
+  const body = act.correctLines.map(l => '        ' + '  '.repeat(l.indent || 0) + l.text).join('\n');
+  return JAVA_PRELUDE +
+    'public class Main {\n' +
+    '    public static void main(String[] args) {\n' +
+    body + '\n' +
+    '    }\n' +
+    '}';
+}
+
+function groupParsonsActivities() {
+  const map = new Map();
+  for (const act of PARSONS_ACTIVITIES) {
+    const code = act.correctLines.map(l => l.text).join('\n');
+    let g = map.get(code);
+    if (!g) {
+      g = { source: null, name: act.funcName, ids: [], _act: act };
+      map.set(code, g);
+    }
+    g.ids.push(act.id);
+  }
+  return Array.from(map.values());
+}
+
+function auditParsons() {
+  return new Promise((resolve, reject) => {
+    const groups = groupParsonsActivities();
+    for (const g of groups) {
+      try {
+        g.source = buildParsonsSource(g._act);
+      } catch (e) {
+        g.source = null;
+        g.buildError = String((e && e.message) || e);
+      }
+    }
+    logLine('PARSONS: ' + PARSONS_ACTIVITIES.length + ' actividades → ' +
+            groups.length + ' compilaciones únicas.', 'info');
+
+    (async () => {
+      for (const g of groups) {
+        setStage('Parsons [' + g.ids.join(',') + '] ' + g.name);
+        let status, detail = '';
+        try {
+          if (!g.source) throw new Error('buildParsonsSource falló: ' + g.buildError);
+          const res = await runJava(g.source, {}, onEngineProgress);
+          const cl = classifyResult(res);
+          if (cl.status === 'ok') {
+            status = 'PASS';
+          } else if (cl.status === 'compile-error') {
+            status = 'COMPILE_ERROR';
+            detail = cl.detail || '';
+          } else {
+            status = 'RUNTIME_ERROR';
+            detail = cl.detail || '';
+          }
+        } catch (e) {
+          if (e && e.code === 'ENGINE_TIMEOUT') {
+            status = 'TIMEOUT';
+            detail = e.message || 'ENGINE_TIMEOUT (20s)';
+          } else if (e && e.code === 'ENGINE_UNAVAILABLE') {
+            reject(e);
+            return;
+          } else {
+            status = 'HARNESS_ERROR';
+            detail = String((e && e.message) || e);
+          }
+        }
+
+        for (const id of g.ids) {
+          audit.parsons.push({
+            id: id,
+            ids: g.ids.slice(),
+            name: g.name,
+            status: status,
+            detail: detail
+          });
+        }
+        if (status !== 'PASS') {
+          const f = {
+            mode: 'Parsons',
+            ids: g.ids.slice(),
+            name: g.name,
+            status: status,
+            detail: detail
+          };
+          audit.failures.push(f);
+          addFailureRow(f);
+          logLine('✗ Parsons [' + g.ids.join(',') + '] ' + g.name + ' → ' + status +
+                  (detail ? ' — ' + trunc(detail, 160) : ''), 'err');
+        } else {
+          logLine('✓ Parsons [' + g.ids.join(',') + '] ' + g.name + ' → PASS', 'ok');
+        }
+
+        audit.completed++;
+        updateProgress();
+        await yieldUI();
+      }
+      resolve();
+    })().catch(reject);
+  });
+}
+
+/* ==========================================================================
+   C) Auditoría del MICRO-EDITOR — 200 métodos (Fácil, Medio, Avanzado, Reto 10)
    ========================================================================== */
 function auditEditor() {
   return new Promise((resolve, reject) => {
@@ -526,14 +651,17 @@ function auditEditor() {
 }
 
 /* ==========================================================================
-   C) Ejecución secuencial + finalización
+   D) Ejecución secuencial + finalización
    ========================================================================== */
 function finish() {
   const bOk = audit.blocks.filter(b => b.status === 'PASS').length;
+  const pOk = audit.parsons.filter(p => p.status === 'PASS').length;
   const eOk = audit.editor.filter(e => e.status === 'PASS').length;
   const resumen = {
     blocksOk: bOk,
     blocksTotal: BLOCK_ACTIVITIES.length,
+    parsonsOk: pOk,
+    parsonsTotal: PARSONS_ACTIVITIES.length,
     editorOk: eOk,
     editorTotal: EDITOR_ACTIVITIES.length,
     errores: audit.failures.length,
@@ -573,16 +701,18 @@ async function startAudit() {
     return;
   }
 
-  const groups = groupBlockActivities();
-  audit.total = groups.length + EDITOR_ACTIVITIES.length;
+  const bGroups = groupBlockActivities();
+  const pGroups = groupParsonsActivities();
+  audit.total = bGroups.length + pGroups.length + EDITOR_ACTIVITIES.length;
   updateProgress();
 
-  logLine('Motor soportado ✓ — iniciando auditoría (' + audit.total +
-          ' ejecuciones).', 'info');
+  logLine('Motor soportado ✓ — iniciando auditoría de los 600 retos (' + audit.total +
+          ' compilaciones con motor WASM).', 'info');
   setStage('Cargando motor…');
 
   try {
     await auditBlocks();
+    await auditParsons();
     await auditEditor();
   } catch (e) {
     if (e && e.code === 'ENGINE_UNAVAILABLE') {

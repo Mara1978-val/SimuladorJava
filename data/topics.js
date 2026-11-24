@@ -1,4 +1,4 @@
-/* Catalogo de algoritmos (150 retos) - extraido literalmente del original */
+/* Catálogo de algoritmos (200 retos: 50 por nivel, incluido ⭐ Reto 10) — extraído del original */
     export const TOPICS_EASY = [
       { name: "imprimirEdadEntera", t_es: "Declarar y mostrar edad entera", t_va: "Declarar i mostrar edat sencera", d_es: "Declara la variable de tipo primitivo int con valor 18 y muestra su contenido en la salida estándar.", d_va: "Declara la variable de tipus primitiu int amb valor 18 i mostra el seu contingut per pantalla.", val: "18", code: "int edad = 18;\nSystem.out.println(edad);" },
       { name: "saludarCicloDAM", t_es: "Concatenar texto con ciclo formativo", t_va: "Concatenar text amb cicle formatiu", d_es: "Inicializa un String con el nombre del ciclo y concaténalo con el mensaje de bienvenida 'Hola DAM'.", d_va: "Inicialitza un String amb el nom del cicle i concatena'l amb el missatge de benvinguda 'Hola DAM'.", val: "Hola DAM", code: "String ciclo = \"DAM\";\nSystem.out.println(\"Hola \" + ciclo);" },

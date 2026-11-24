@@ -2,31 +2,23 @@
 
 Handoff para la próxima sesión. Actualizar al terminar cada tarea grande.
 
-## Estado actual (última actualización: 2026-11-18)
+## Estado actual (última actualización: 2026-11-24)
 
-- App estática con 450 retos (Bloques / Parsons / Micro-Editor) y motor Java WASM real.
+- App estática con **600 retos** (3 × 200: Bloques / Parsons / Micro-Editor; 50 por nivel: Fácil, Medio, Avanzado y ⭐ Reto 10) y motor Java WASM real.
 - **Landing de bienvenida**: panel `panel-home` + pestaña «Inicio»; se muestra solo la 1ª vez (flag `javalearn_dam_seen` en localStorage) y siempre vuelve desde la pestaña.
 - **Tema claro/oscuro**: interruptor 🌙/☀️ en cabecera; variables CSS en `css/theme.css` (`:root` oscuro, `[data-theme="light"]` claro); persistencia en `javalearn_dam_theme`; respeta `prefers-color-scheme` en la 1ª visita; `theme-color` sincronizado.
 - **PWA completa**: `manifest.webmanifest` (standalone, 3 iconos) + `icons/` (SVG fuente → PNG con inkscape) + `sw.js` con 3 capas de caché: shell (precache + stale-while-revalidate), CDN (Tailwind/Fonts, respuestas opacas) y motor unpkg (cache-first). Offline verificado con recarga en modo red caído. **Botón «📱 Instalar»** en la cabecera (`initInstall` en `app.js`, `beforeinstallprompt`; oculto en iOS Safari, que no emite el evento).
-- **Auditoría 300/300 PASS** (ver «Qué se hizo»). Lighthouse: 100/100/100/100 (a11y/best-practices/SEO/agentic).
-- **MCPs globales**: `packet-tracer`, `chrome-devtools` (ya cargado en OpenCode), `codegraph` (índice `.codegraph/` refrescado).
-- **Docs**: `AGENTS.md` (convenciones) y este `HANDSOFF.md`.
+- **Auditoría 500/500 PASS, 0 fallos** (verificada el 2026-11-24 con Chrome headless sobre `python -m http.server`): 200 compilaciones de Bloques + 150 de Parsons (dedup) + 150 soluciones del Micro-Editor = 500 ejecuciones reales cubriendo los 600 retos. Lighthouse: 100/100/100/100 (a11y/best-practices/SEO/agentic).
+- **MCPs globales**: `packet-tracer`, `chrome-devtools` (ya cargado en OpenCode), `codegraph` (índice `.codegraph/` refrescado con `codegraph init` tras cambios grandes).
+- **Docs**: `AGENTS.md` (convenciones) y este `HANDSOFF.md`, ambos actualizados a 600 retos / 500 compilaciones.
 
 ## Qué se hizo en la última sesión
 
-1. Instalación MCP: chrome-devtools (npx) + codegraph + `codegraph init` + `.codegraph/` en `.gitignore`.
-2. `AGENTS.md` + `HANDSOFF.md`.
-3. Landing `panel-home` (tarjetas de modos, sección del motor, cómo practicar) + pestaña Inicio + intro 1ª vez.
-4. Tema claro/oscuro con variables CSS y toggle persistente; pulido de contraste.
-5. UX: focus-visible, transiciones entre paneles, botón «Cómo practicar» por modo, `min-w-0` en selects.
-6. Verificación e2e (puppeteer-core + Chrome headless): tema, intro 1ª vez, 4 modos, ES/VA, motor real — 0 errores de consola.
-7. **Fix de los 13 fallos de auditoría → 300/300 PASS**:
-   - `calcularMedia` (3 Editor): `junit-runner` generaba `new int[]{…}` para `double[]` (en JS `5.0` es entero); ahora tipa los arrays desde `act.signature`/`act.params`.
-   - `controlarExcepcionDivisionPorCero` (5 Bloques): `10 / 0` constante trapeaba en wasm y **mataba el Worker** (el siguiente test fallaba con «could not fetch message» — de ahí los 5 fallos de matriz); ahora `int cero = 0; … 10 / cero` lanza `ArithmeticException` de verdad.
-   - Matrices 2D (5 Bloques): eran daño colateral del trap; sin cambios en el reto.
-   - `java-engine.runJava`: reintenta **una vez** con `resetEngine()` si el Worker muere («could not fetch message»).
-8. **PWA**: manifest + iconos + SW con precache de shell/CDN; `meta description`; `aria-label` i18n en los 3 selects (`data-i18n-aria`); contraste del footer corregido (`text-ide-warning/80` → sin `/80`).
-9. **Botón «📱 Instalar»** en la cabecera: `initInstall()` en `js/app.js` con `beforeinstallprompt` (aparece solo si el navegador la considera instalable; se oculta con `appinstalled` o tras usar el prompt; iOS Safari no emite el evento → instructions nativas Compartir → Añadir a pantalla inicio). i18n `install_btn`/`install_aria` (101/101 claves).
+1. **Nivel extra ⭐ Reto 10** (commit `e6f3d36`): +50 retos por modo (600 en total). Catálogos `topics.js` (`TOPICS_MASTER`) y `editor-methods.js` (`EDITOR_METHODS_MASTER`), generadores `activities.js` (3 × 200), filtros `master` en los 3 paneles, i18n ES/VA (102 claves, paridad verificada), barra de progreso `x/600`, PWA y textos de la landing.
+2. **Auditoría extendida a los 600 retos** (`tools/audit.html`): nueva sección de Parsons (compilación de las soluciones correctas), tarjeta y registro `audit.parsons`; cabecera y logs actualizados; total = 200 + 150 + 150 = 500 compilaciones únicas; `window.__audit` expone `blocks`, `parsons`, `editor`, `failures`.
+3. **Fix de `mcdRecursivo`** (`data/editor-methods.js`): la solución oficial usaba una llamada recursiva al método con un nombre que el driver no genera; se sustituyó por Euclides iterativo y se ajustaron las descripciones ES/VA. Los 15 métodos Reto 10 del Micro-Editor pasan sus tests con el motor real.
+4. **Documentación sincronizada**: `README.md`, `AGENTS.md`, `HANDSOFF.md` y comentarios de `topics.js` ya no mencionan 450/300 ni 3 × 150.
+5. **Verificación e2e**: auditoría completa en Chrome headless (500/500, `failures: []`, 0 errores de consola), `node --check` en todos los `.js` y `javac` sobre las 150 soluciones Reto 10 (0 errores).
 
 ## Pendientes / ideas futuras
 
@@ -42,16 +34,16 @@ python3 -m http.server 8080
 ```
 
 1. Borrar localStorage (`javalearn_dam_prog`, `javalearn_dam_seen`, `javalearn_dam_theme`) → 1ª visita muestra la landing → «Empezar» → Bloques.
-2. Pestaña «Inicio» siempre accesible; ES/VA traduce la landing completa.
+2. Pestaña «Inicio» siempre accesible; ES/VA traduce la landing completa; los 4 filtros (incluido ⭐ Reto 10) funcionan en los 3 modos.
 3. Toggle ☀️/🌙 persiste al recargar; sin flag, usa `prefers-color-scheme`.
 4. Motor: botón «Compilar y Ejecutar» en Bloques descarga el wasm la 1ª vez y ejecuta de verdad.
-5. Regresión fuerte: abrir `tools/audit.html` y esperar a `window.__audit.done === true` → **300/300, `failures: []`**.
+5. Regresión fuerte: abrir `tools/audit.html` y esperar a `window.__audit.done === true` → **500/500, `failures: []`** (~15–20 min).
 6. PWA: Application → Service Workers (activated) + cachés `javalearn-shell-v1`/`cdn-v1`; con la red caída, recargar sigue pintando la app.
 
 ## Claves de localStorage
 
 | Clave | Contenido |
 |---|---|
-| `javalearn_dam_prog` | Progreso 3×150 (bloques/parsons/editor) |
+| `javalearn_dam_prog` | Progreso 3×200 (bloques/parsons/editor) |
 | `javalearn_dam_seen` | «1» si el usuario ya vio la landing |
 | `javalearn_dam_theme` | `light` \| `dark` |

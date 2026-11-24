@@ -9,7 +9,7 @@ python3 -m http.server 8080   # → http://localhost:8080/
 ```
 
 - Los módulos ES y el Worker del motor **no funcionan con `file://`**: siempre servir por HTTP.
-- No hay linter/typecheck configurado. Verificación: `tools/audit.html` (300 compilaciones con el motor real; **objetivo 300/300 PASS**), Lighthouse (100/100/100/100) y revisión manual en el navegador.
+- No hay linter/typecheck configurado. Verificación: `tools/audit.html` (500 compilaciones únicas con el motor real para los 600 retos; **objetivo 500/500 PASS**), Lighthouse (100/100/100/100) y revisión manual en el navegador.
 
 ## Arquitectura
 
@@ -23,7 +23,7 @@ icons/                ← iconos PNG (192/512/maskable/apple) + SVG fuente
 data/
   i18n-dict.js        ← diccionario ES/VA (AÑADIR claves SIEMPRE en ambos idiomas)
   topics.js           ← catálogo de algoritmos (150 Parsons)
-  editor-methods.js   ← métodos del micro-editor (150 retos)
+  editor-methods.js   ← métodos del micro-editor (200 retos, 50 por nivel)
   activities.js       ← generadores de las 3×200 actividades
   java-support.js     ← preludio Java (clase Alumno)
 js/
@@ -39,7 +39,7 @@ js/
     parsons-compile.js← «Compilar código» de Parsons
     legacy-fallback.js← simulador legacy (respaldo sin red/file://)
 tools/
-  audit.html          ← auditoría de compatibilidad (300 compilaciones)
+  audit.html          ← auditoría de compatibilidad (500 compilaciones únicas; 600 retos)
   INTERFACES.md       ← contrato de módulos
 legacy/
   AplicacionJAVA-original.html  ← monolito original (referencia, no tocar)
