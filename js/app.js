@@ -147,7 +147,7 @@ function initApp() {
   initTheme();
   initInstall();
 
-  setLanguage('es');
+  setLanguage('va');
 
   /* Intro: la landing solo aparece en la primera visita (o si no hay storage) */
   let seen = false;

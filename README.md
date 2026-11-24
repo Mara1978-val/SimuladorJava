@@ -33,7 +33,7 @@ Plataforma **estática** para practicar Java con **600 retos** (200 Bloques · 2
 
 - **Landing de bienvenida** (`Inicio`): se muestra solo en la **1ª visita** y siempre puedes volver desde la pestaña «🏠 Inicio»; incluye accesos directos a los 3 modos, qué es el motor y «Cómo practicar».
 - **Tema claro/oscuro** (paletas Mocha / Latte): botón ☀️/🌙 en la cabecera, persistente, respeta `prefers-color-scheme` en la 1ª visita y sincroniza el `theme-color` del navegador.
-- **Bilingüe ES / VA** (valenciano): todos los textos visibles usan `data-i18n` y se traducen también los `aria-label` (`data-i18n-aria`). Cambio de idioma en caliente, sin recargar.
+- **Bilingüe ES / VA** (valenciano): se abre por defecto en **valenciano** (puedes cambiar a ES con el botón de la cabecera). Todos los textos visibles usan `data-i18n` y se traducen también los `aria-label` (`data-i18n-aria`). Cambio de idioma en caliente, sin recargar.
 - **Accesibilidad**: `:focus-visible`, contraste verificado con Lighthouse (100/100), etiquetas en los selects, botón de instalación con `aria-label` traducido.
 - **Transiciones** suaves entre paneles (respetando `prefers-reduced-motion`).
 

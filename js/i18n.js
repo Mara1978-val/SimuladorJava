@@ -8,7 +8,7 @@ import { I18N } from '../data/i18n-dict.js';
 
 export { I18N };
 
-export let currentLang = 'es';
+export let currentLang = 'va';
 
 export const isEs = () => currentLang === 'es';
 
